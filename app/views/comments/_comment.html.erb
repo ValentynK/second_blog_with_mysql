@@ -1,0 +1,15 @@
+<p>
+  <strong>Автор коментаря:</strong>
+  <%= comment.commenter %>
+</p>
+
+<p>
+  <strong>Коментар</strong>
+  <%= comment.body %>
+</p>
+
+<p>
+  <%= link_to 'Видалити коментар', [comment.article, comment],
+               method: :delete,
+               data: { confirm: 'Справді видалити коментар?' }%>
+</p>
