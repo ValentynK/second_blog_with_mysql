@@ -21,6 +21,7 @@ class ArticlesController < ApplicationController
     @article = Article.new(article_params)
 
     if @article.save
+      flash[:notice] = "Вдало збережена стаття"
       redirect_to @article
     else
       render 'new'
