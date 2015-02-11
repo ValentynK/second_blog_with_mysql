@@ -1,20 +1,25 @@
 class ArticlesController < ApplicationController
+  respond_to :html, :xml
 
   http_basic_authenticate_with name: "kvv", password: "secret", expect: [:index, :show]
 
   def index
     @articles = Article.all
+    respond_with(@articles)
   end
   def show
     @article = Article.find(params[:id])
+    respond_with(@article)
   end
 
   def new
     @article = Article.new
+    respond_with(@article)
   end
 
   def edit
     @article = Article.find(params[:id])
+    respond_with(@article)
   end
 
   def create
@@ -22,27 +27,24 @@ class ArticlesController < ApplicationController
 
     if @article.save
       flash[:notice] = "Вдало збережена стаття"
-      redirect_to @article
-    else
-      render 'new'
     end
+    respond_with(@article)
   end
 
   def update
     @article = Article.find(params[:id])
 
     if @article.update(article_params)
-      redirect_to @article
-    else
-      render 'edit'
+      flash[:notice] = "Вдало оновлена стаття"
     end
+    respond_with(@article, :location => articles_url)
   end
 
   def destroy
     @article = Article.find(params[:id])
     @article.destroy
-
-    redirect_to articles_path
+    flash[:notice] = "Вдало видаленна стаття"
+    respond_with(@article)
   end
 
 private
