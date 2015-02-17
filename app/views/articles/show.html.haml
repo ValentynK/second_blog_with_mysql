@@ -1,0 +1,13 @@
+%p
+  %strong Title:
+  = @article.title
+%p
+  %strong Text:
+  = @article.text
+%h2 Коментарі
+= render @article.comments
+%h2 Додати коментарій:
+= render 'comments/form'
+= link_to 'Повернутись', articles_path
+|
+= link_to 'Редагувати статтю', edit_article_path(@article)

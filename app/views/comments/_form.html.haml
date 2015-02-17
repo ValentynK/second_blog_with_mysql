@@ -1,0 +1,11 @@
+= form_for ([@article, @article.comments.build]) do |f|
+  %p
+    = f.label :commenter, 'Автор'
+    %br/
+    = f.text_field :commenter
+  %p
+    = f.label :body, 'Коментар'
+    %br/
+    = f.text_area :body
+  %p
+    = f.submit

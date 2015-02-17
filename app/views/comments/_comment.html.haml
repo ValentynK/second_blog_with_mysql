@@ -1,0 +1,10 @@
+%p
+  %strong Автор коментаря:
+  = comment.commenter
+%p
+  %strong Коментар
+  = comment.body
+%p
+  = link_to 'Видалити коментар', [comment.article, comment], |
+    method: :delete,                                         |
+    data: { confirm: 'Справді видалити коментар?' }          |

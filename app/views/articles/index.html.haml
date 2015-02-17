@@ -1,0 +1,15 @@
+%h1 Listing articles
+= link_to 'Нова стаття', new_article_path
+%table
+  %tr
+    %th Title
+    %th Text
+  - @articles.each do |article|
+    %tr
+      %td= article.title
+      %td= article.text
+      %td= link_to 'Переглянути', article_path(article)
+      %td= link_to 'Редагувати статтю', edit_article_path(article)
+      %td= link_to 'Видалити', article_path(article), |
+          method: :delete,                           |
+          data: { confirm: 'Справді видалити???' }   |
