@@ -1,14 +1,17 @@
 class ArticlesController < ApplicationController
   respond_to :html, :xml
+  before_filter :authenticate_user!, :except => [:show, :index]
 
   http_basic_authenticate_with name: "kvv", password: "secret", expect: [:index, :show]
 
   def index
     @articles = Article.all
+    # binding.pry
     respond_with(@articles)
   end
+
   def show
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
     respond_with(@article)
   end
 
