@@ -12,9 +12,7 @@ class PathChangingService
 
   def generate_reference
     begin
-      random_number = rand(10_000_000)
-      random_string = [*'A'..'Z'].sample(3).join
-      reference = random_string + "-" + random_number.to_s
+      reference = [*'A'..'Z'].sample(3).join + "-" + rand(10_000_000).to_s
     # reference = 'RXA-2754054' it's for testing loop without over :)
     end while Article.exists?(reference: reference)
 
