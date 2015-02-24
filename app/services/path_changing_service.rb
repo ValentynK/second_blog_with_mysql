@@ -16,7 +16,7 @@ class PathChangingService
     # reference = 'RXA-2754054' it's for testing loop without over :)
     end while Article.exists?(reference: reference)
 
-    article.reference = reference
+    @article.reference = reference
     binding.pry
   end
 
