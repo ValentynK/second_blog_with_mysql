@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
 
   http_basic_authenticate_with name: "kvv", password: "secret", expect: [:index, :show]
-
+  binding.pry
   def index
     @articles = Article.all
     # binding.pry
@@ -21,21 +21,23 @@ class ArticlesController < ApplicationController
   end
 
   def edit
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
     respond_with(@article)
   end
 
   def create
     @article = Article.new(article_params)
+    ::PathChangingService.new(@article).generate_reference
 
     if @article.save
       flash[:notice] = "Вдало збережена стаття"
     end
+    binding.pry
     respond_with(@article)
   end
 
   def update
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
 
     if @article.update(article_params)
       flash[:notice] = "Вдало оновлена стаття"
@@ -44,7 +46,7 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find(params[:id])
+    @article = Article.friendly.find(params[:id])
     @article.destroy
     flash[:notice] = "Вдало видаленна стаття"
     respond_with(@article)

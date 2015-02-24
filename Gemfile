@@ -12,6 +12,7 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 gem 'devise'
+gem 'haml'
 gem 'html2haml'
 gem 'pry'
 gem 'friendly_id'
