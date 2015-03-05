@@ -3,7 +3,7 @@ class ArticlesController < ApplicationController
   before_filter :authenticate_user!, :except => [:show, :index]
 
   http_basic_authenticate_with name: "kvv", password: "secret", expect: [:index, :show]
-  binding.pry
+  
   def index
     @articles = Article.all
     # binding.pry
@@ -27,7 +27,7 @@ class ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params)
-    ::PathChangingService.new(@article).generate_reference
+    # ::PathChangingService.generate_reference(@article)
 
     if @article.save
       flash[:notice] = "Вдало збережена стаття"

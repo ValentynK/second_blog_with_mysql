@@ -5,11 +5,11 @@ class Article < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   validates :title, presence: true,
                     length: {minimum: 5}
- # before_create :generate_ref
+  before_create :generate_ref
 
-  #def generate_ref
-   # ::PathChangingService.new(self).generate_reference
-  #end
+  def generate_ref
+    ::PathChangingService.generate_reference(self)
+  end
 
   # def to_param
   #  "#{reference}".parameterize
