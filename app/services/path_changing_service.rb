@@ -1,48 +1,46 @@
 class PathChangingService
-  attr_reader :article, :reference
-  @@reference = 0
-  # attr_accessor :reference
+  attr_reader :object, :model_reference
 
   class << self
-    def generate_reference(article)
-      new(article).set_reference
+    def generate_reference(object_with_reference)
+      new(object_with_reference).set_reference
       binding.pry
-      @article
+      #@article
     end
 
     private :new
-
-
-      # @article.reference = reference
-      # reference = 'RXA-2754054' it's for testing loop without over :)
-    end
-
-  def initialize(article)
-    @article = article
   end
 
-  def randomizing_reference
-    reference = [*'A'..'Z'].sample(3).join + "-" + rand(10_000_000).to_s while Article.exists?(reference: reference)
-    # @@reference = reference
-    @reference = reference
-  end
-
-  def set_reference
-
-    # randomize = randomizing_reference
-    #article.reference = (@@reference)
-    article.reference = randomizing_reference
+  def initialize(object)
+    @object = object
+    @model_reference = @object.class
     binding.pry
   end
 
+  def create_reference
+    [*'A'..'Z'].sample(3).join + "-" + rand(10_000_000).to_s
+  end
 
-end
+  def set_reference
+    loop {
+      a = create_reference
+      unless @model_reference.exists?(reference: a)
+        object.reference = a
+        break
+      end
+    }
+
+    # randomize = randomizing_reference
+    #article.reference = (@@reference)
+    # artic.reference = randomizing_reference while
+    binding.pry
+   end
 
   # def randomizing_reference
   #   begin
   #   @reference = [*'A'..'Z'].sample(3).join + "-" + rand(10_000_000).to_s while Article.exists?(reference: @reference)
   #   end
-  # end
+end
 
 
   # I mean, that this method is unimportant

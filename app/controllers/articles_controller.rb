@@ -32,7 +32,7 @@ class ArticlesController < ApplicationController
     if @article.save
       flash[:notice] = "Вдало збережена стаття"
     end
-    binding.pry
+
     respond_with(@article)
   end
 
